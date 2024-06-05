@@ -1,6 +1,6 @@
 # Auto Tile Generator
 
-**Version:** 1.0.1  
+**Version:** 1.0.2  
 **Author:** Mitchell Opitz  
 **Website:** [mitchellopitz.net](https://www.mitchellopitz.net)
 
