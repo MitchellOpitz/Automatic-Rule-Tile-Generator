@@ -29,7 +29,7 @@ public class AutotilerGUI : Editor
 
     private void DrawHeader()
     {
-        EditorGUILayout.LabelField("BF Tools - Automatic Rule Tile Generator", EditorStyles.boldLabel);
+        EditorGUILayout.LabelField("BF Tools - Rule Tile Generator", EditorStyles.boldLabel);
         DrawHorizontalLine();
     }
 

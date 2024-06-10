@@ -8,7 +8,7 @@ using BF_Tools;
 #if UNITY_EDITOR
 
 [ExecuteInEditMode]
-[CreateAssetMenu(menuName = "BF Tools - Auto Rule Tile", fileName = "BF Tools - Auto Rule Tile")]
+[CreateAssetMenu(menuName = "BF Tools/Auto Rule Tile", fileName = "AutoRuleTile")]
 public class Autotiler_SO : ScriptableObject
 {
     [SerializeField]
