@@ -1,81 +1,78 @@
 using UnityEngine;
-using System;
 using System.Collections.Generic;
 using UnityEditor;
 using System.Linq;
 using UnityEngine.Tilemaps;
-using System.Text.RegularExpressions;
-using BF_Sort;
+using BF_Tools;
 
 #if UNITY_EDITOR
 
 [ExecuteInEditMode]
-[CreateAssetMenu(menuName = "BF Tools - Auto Rule Tile", fileName = "BF Tools - Auto Rule Tile")]
+[CreateAssetMenu(menuName = "BF Tools/Auto Rule Tile", fileName = "AutoRuleTile")]
 public class Autotiler_SO : ScriptableObject
 {
     [SerializeField]
-    List<Texture2D> tilemaps;
+    private List<Texture2D> tilemaps;
 
     [SerializeField]
-    RuleTile ruleTileTemplate;
+    private RuleTile ruleTileTemplate;
 
     private RuleTile newRuleTile;
     private int numberOfRules;
 
     public void CreateRuleTiles()
     {
-        if (CheckRuleTemplate() && CompareTilemapsToRuleTile())
+        if (IsValidRuleTemplate() && AreTilemapsValid())
         {
-            CopyRuleTile();
+            CopyRuleTileTemplate();
             if (tilemaps.Count == 1)
             {
-                SingleTilemap();
+                ApplySingleTilemap();
             }
             else
             {
-                RandomTilemaps();
+                ApplyRandomTilemaps();
             }
-            CreateAsset();
+            CreateNewRuleTileAsset();
         }
     }
 
-    private bool CheckRuleTemplate()
+    private bool IsValidRuleTemplate()
     {
         if (ruleTileTemplate == null)
         {
-            Debug.LogError("Rule tile not assigned.");
+            Debug.LogError("Rule tile template not assigned.");
             return false;
         }
         return true;
     }
 
-    private bool CompareTilemapsToRuleTile()
+    private bool AreTilemapsValid()
     {
         numberOfRules = ruleTileTemplate.m_TilingRules.Count;
 
         foreach (Texture2D tilemap in tilemaps)
         {
-            string spriteSheetName = AssetDatabase.GetAssetPath(tilemap);
-            Sprite[] sprites = AssetDatabase.LoadAllAssetsAtPath(spriteSheetName).OfType<Sprite>().ToArray();
+            string spriteSheetPath = AssetDatabase.GetAssetPath(tilemap);
+            Sprite[] sprites = AssetDatabase.LoadAllAssetsAtPath(spriteSheetPath).OfType<Sprite>().ToArray();
 
             if (sprites.Length != numberOfRules)
             {
-                Debug.LogError("Tilemap does not contain the number of sprites needed by Rule Tile template.");
-                Debug.LogError($"Sprite sheet: {tilemap.name} | Sprites contained: {sprites.Length}");
-                Debug.LogError($"Rule Tile template: {ruleTileTemplate} | Rules contained: {numberOfRules}");
+                Debug.LogError($"Tilemap {tilemap.name} does not contain the required number of sprites. " +
+                               $"Expected: {numberOfRules}, Found: {sprites.Length}");
                 return false;
             }
         }
         return true;
     }
 
-    private void CopyRuleTile()
+    private void CopyRuleTileTemplate()
     {
         newRuleTile = CreateInstance<RuleTile>();
         EditorUtility.CopySerialized(ruleTileTemplate, newRuleTile);
     }
 
-    private void SingleTilemap()
+    private void ApplySingleTilemap()
     {
         foreach (RuleTile.TilingRule rule in newRuleTile.m_TilingRules)
         {
@@ -83,8 +80,8 @@ public class Autotiler_SO : ScriptableObject
             rule.m_Sprites = new Sprite[] { rule.m_Sprites[0] };
         }
 
-        string spriteSheetName = AssetDatabase.GetAssetPath(tilemaps[0]);
-        Sprite[] sprites = AssetDatabase.LoadAllAssetsAtPath(spriteSheetName).OfType<Sprite>().OrderByNatural(s => s.name).ToArray();
+        string spriteSheetPath = AssetDatabase.GetAssetPath(tilemaps[0]);
+        Sprite[] sprites = AssetDatabase.LoadAllAssetsAtPath(spriteSheetPath).OfType<Sprite>().OrderByNatural(s => s.name).ToArray();
 
         for (int i = 0; i < numberOfRules; i++)
         {
@@ -92,7 +89,7 @@ public class Autotiler_SO : ScriptableObject
         }
     }
 
-    private void RandomTilemaps()
+    private void ApplyRandomTilemaps()
     {
         foreach (RuleTile.TilingRule rule in newRuleTile.m_TilingRules)
         {
@@ -103,8 +100,9 @@ public class Autotiler_SO : ScriptableObject
         for (int i = 0; i < tilemaps.Count; i++)
         {
             Texture2D tilemap = tilemaps[i];
-            string spriteSheetName = AssetDatabase.GetAssetPath(tilemap);
-            Sprite[] sprites = AssetDatabase.LoadAllAssetsAtPath(spriteSheetName).OfType<Sprite>().OrderByNatural(s => s.name).ToArray();
+            string spriteSheetPath = AssetDatabase.GetAssetPath(tilemap);
+            Sprite[] sprites = AssetDatabase.LoadAllAssetsAtPath(spriteSheetPath).OfType<Sprite>().OrderByNatural(s => s.name).ToArray();
+
             for (int j = 0; j < numberOfRules; j++)
             {
                 newRuleTile.m_TilingRules[j].m_Sprites[i] = sprites[j];
@@ -112,16 +110,14 @@ public class Autotiler_SO : ScriptableObject
         }
     }
 
-    private void CreateAsset()
+    private void CreateNewRuleTileAsset()
     {
         string currentPath = AssetDatabase.GetAssetPath(this);
         string directory = System.IO.Path.GetDirectoryName(currentPath);
-        string newFileName = "New Rule Tile.asset";
-        string newPath = System.IO.Path.Combine(directory, newFileName);
+        string newPath = System.IO.Path.Combine(directory, "New Rule Tile.asset");
         AssetDatabase.CreateAsset(newRuleTile, newPath);
         AssetDatabase.SaveAssets();
     }
-
 }
 
 #endif
