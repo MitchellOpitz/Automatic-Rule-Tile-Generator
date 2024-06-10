@@ -1,7 +1,7 @@
 {
     "name": "com.brainfartstudio.autotile",
     "displayName": "Auto Rule Tile Generator",
-    "version": "1.0.2",
+    "version": "1.0.3",
     "unity": "2021.1",
     "description": "A tool to automatically generate rule tiles based on a template and tilemaps.",
     "keywords": [
