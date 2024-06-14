@@ -28,7 +28,7 @@ public class AutotilerGUI : Editor
         tilemaps.GetArrayElementAtIndex(0).objectReferenceValue = defaultTilemap;
      }
 
-      serializedObject.Update();
+      serializedObject.ApplyModifiedProperties();
     }
 
     public override void OnInspectorGUI()
