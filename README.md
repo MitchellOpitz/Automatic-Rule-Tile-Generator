@@ -1,6 +1,6 @@
 # Auto Tile Generator
 
-**Version:** 1.0.3  
+**Version:** 1.0.4  
 **Author:** Mitchell Opitz  
 **Website:** [mitchellopitz.net](https://www.mitchellopitz.net)
 
@@ -47,7 +47,7 @@ The Auto Tile Generator is a tool for Unity that allows you to automatically gen
 
 1. **Create an Auto Tile ScriptableObject:**
     - Right-click in the Project window.
-    - Select `Create` > `BF Tools - Auto Rule Tile`.
+    - Select `Create` > `BF Tools` > `Auto Rule Tile`.
 
 2. **Configure the Auto Tile Generator:**
     - Select the newly created AutoTiler asset.
@@ -65,8 +65,9 @@ MyAutoTileTool/
 │ └── Autotiler_SO.cs
 ├── Runtime/
 │ └── NaturalSortingExtension.cs
-├── Editor Default Resources/
-│ └── (Any default resources your editor scripts might need)
+├── Resources/
+│ ├── RuleTile_Template.asset
+│ └── Tilemap_Template.png
 ├── LICENSE
 ├── README.md
 └── package.json

@@ -10,9 +10,26 @@ public class AutotilerGUI : Editor
 
     private void OnEnable()
     {
-        tilemaps = serializedObject.FindProperty("tilemaps");
-        ruleTileTemplate = serializedObject.FindProperty("ruleTileTemplate");
-        autotilerScript = (Autotiler_SO)target;
+      tilemaps = serializedObject.FindProperty("tilemaps");
+      ruleTileTemplate = serializedObject.FindProperty("ruleTileTemplate");
+      autotilerScript = (Autotiler_SO)target;
+
+      // Load default RuleTile Template
+      string ruleTileTemplatePath = "Packages/Auto Rule Tile Generator/Resources/RuleTile_Template.asset";
+      ruleTileTemplate.objectReferenceValue = AssetDatabase.LoadAssetAtPath(ruleTileTemplatePath, typeof(RuleTile));
+
+      // Load default Tilemap Template
+      string tilemapTemplatePath = "Packages/Auto Rule Tile Generator/Resources/Tilemap_Template.png";
+      Texture2D defaultTilemap = AssetDatabase.LoadAssetAtPath(tilemapTemplatePath, typeof(Texture2D)) as Texture2D;
+      if (defaultTilemap != null)
+      {
+        // Add default tilemap to the list
+        tilemaps.ClearList();
+        tilemaps.InsertArrayElementAtIndex(0);
+        tilemaps.GetArrayElementAtIndex(0).objectReferenceValue = defaultTilemap;
+      }
+
+      serializedObject.Update();
     }
 
     public override void OnInspectorGUI()
