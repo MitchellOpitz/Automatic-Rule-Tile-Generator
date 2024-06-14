@@ -23,11 +23,10 @@ public class AutotilerGUI : Editor
       Texture2D defaultTilemap = AssetDatabase.LoadAssetAtPath(tilemapTemplatePath, typeof(Texture2D)) as Texture2D;
       if (defaultTilemap != null)
       {
-        // Add default tilemap to the list
-        tilemaps.ClearList();
+        tilemaps.arraySize = 0;
         tilemaps.InsertArrayElementAtIndex(0);
         tilemaps.GetArrayElementAtIndex(0).objectReferenceValue = defaultTilemap;
-      }
+     }
 
       serializedObject.Update();
     }
