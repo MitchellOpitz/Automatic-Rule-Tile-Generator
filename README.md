@@ -1,19 +1,19 @@
-# Auto Tile Generator
+# Auto Rule Tile Generator
 
-**Version:** 1.0.8
+**Version:** 1.0.8  
 **Author:** Mitchell Opitz  
 **Website:** [mitchellopitz.net](https://www.mitchellopitz.net)
 
 ## Overview
 
-The Auto Tile Generator is a tool for Unity that allows you to automatically generate rule tiles based on a template and a variable number of tilemaps. This tool is particularly useful for quickly creating visually diverse tilemaps without manual sprite assignment.
+The Auto Rule Tile Generator is a tool for Unity designed to streamline the creation of rule tiles based on a predefined template and multiple tilemaps. This tool significantly reduces the time and effort required to manually assign sprites, enabling developers to create visually diverse tilemaps quickly and efficiently.
 
 ## Features
 
-- Automatically generates rule tiles from a template
-- Supports single and random tilemaps
-- Easy integration into your Unity projects
-- Customizable rule tile templates
+- **Automatic Rule Tile Generation:** Automatically creates rule tiles from a provided template.
+- **Support for Single and Random Tilemaps:** Handles both single tilemap and multiple tilemaps for randomization.
+- **Customizable Rule Tile Templates:** Allows the use of custom rule tile templates.
+- **Easy Integration:** Seamlessly integrates into your existing Unity projects.
 
 ## Requirements
 
@@ -31,6 +31,7 @@ The Auto Tile Generator is a tool for Unity that allows you to automatically gen
     https://github.com/MitchellOpitz/Automatic-Rule-Tile-Generator.git
     ```
 5. Click `Add`.
+6. If there are dependency issues, ensure that all required packages are installed via the Package Manager.
 
 ### Using Local Path (for Development)
 
@@ -45,20 +46,28 @@ The Auto Tile Generator is a tool for Unity that allows you to automatically gen
 
 ## Usage
 
-1. **Create an Auto Tile ScriptableObject:**
+1. **Create an Auto Rule Tile ScriptableObject:**
     - Right-click in the Project window.
     - Select `Create` > `BF Tools` > `Auto Rule Tile`.
 
-2. **Configure the Auto Tile Generator:**
+2. **Configure the Auto Rule Tile Generator:**
     - Select the newly created AutoTiler asset.
     - Assign your tilemaps in the `Tilemaps` field.
-    - Assign a rule tile template in the `Rule Tile Template` field (optional).
+    - (Optional) Assign a rule tile template in the `Rule Tile Template` field.
 
 3. **Generate Rule Tiles:**
     - Click the `Generate Rule Tile` button in the Inspector.
 
+### Tips for Configuration
+
+- Ensure your tilemaps follow the correct template layout for compatibility.
+- Use the provided default templates to get started quickly, then customize as needed.
+- Validate your rule tile template and tilemaps before generating to avoid errors.
+- **Randomizer Feature:** When using a single tilemap, some tiles may appear repetitive. To reduce this, use multiple variant tilemaps. These variants are visually similar but contain subtle differences to create a less repetitive and more natural-looking tilemap.
+
 ## Folder Structure
 
+```
 MyAutoTileTool/
 ├── Editor/
 │ ├── Autotiler_GUI.cs
@@ -71,11 +80,11 @@ MyAutoTileTool/
 ├── LICENSE
 ├── README.md
 └── package.json
-
+```
 
 ## Contributing
 
-If you would like to contribute to this project, please fork the repository and submit a pull request. For major changes, please open an issue first to discuss what you would like to change.
+This tool is currently developed solely by me. If you have suggestions for modifications or new features, please submit an issue on [GitHub Issues](https://github.com/MitchellOpitz/Automatic-Rule-Tile-Generator/issues).
 
 ## License
 
@@ -83,4 +92,6 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## Contact
 
-For support, you can contact Mitchell Opitz at [mitchell@mitchellopitz.net](mailto:mitchell@mitchellopitz.net) or visit [mitchellopitz.net](https://www.mitchellopitz.net).
+For support or inquiries, contact Mitchell Opitz at [mitchell@mitchellopitz.net](mailto:mitchell@mitchellopitz.net) or visit [mitchellopitz.net](https://www.mitchellopitz.net).
+
+If you encounter any issues or have feature requests, please use the GitHub [Issues](https://github.com/MitchellOpitz/Automatic-Rule-Tile-Generator/issues) page.
