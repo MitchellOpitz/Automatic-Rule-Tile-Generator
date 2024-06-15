@@ -14,21 +14,24 @@ public class AutotilerGUI : Editor
         ruleTileTemplate = serializedObject.FindProperty("ruleTileTemplate");
         autotilerScript = (Autotiler_SO)target;
 
-        // Load default RuleTile Template
-        string ruleTileTemplatePath = "Packages/com.brainfartstudio.autotile/Resources/RuleTile_Template.asset";
-        ruleTileTemplate.objectReferenceValue = AssetDatabase.LoadAssetAtPath<RuleTile>(ruleTileTemplatePath);
-
-        // Load default Tilemap Template
-        string tilemapTemplatePath = "Packages/com.brainfartstudio.autotile/Resources/Tilemap_Template.png";
-        Texture2D defaultTilemap = AssetDatabase.LoadAssetAtPath<Texture2D>(tilemapTemplatePath);
-        if (defaultTilemap != null)
+        // Only set default values if they are not already set
+        if (ruleTileTemplate.objectReferenceValue == null)
         {
-            tilemaps.arraySize = 0;
-            tilemaps.InsertArrayElementAtIndex(0);
-            tilemaps.GetArrayElementAtIndex(0).objectReferenceValue = defaultTilemap;
+            string ruleTileTemplatePath = "Packages/com.brainfartstudio.autotile/Resources/RuleTile_Template.asset";
+            ruleTileTemplate.objectReferenceValue = AssetDatabase.LoadAssetAtPath<RuleTile>(ruleTileTemplatePath);
         }
 
-        // Apply the changes to make sure they are saved
+        if (tilemaps.arraySize == 0)
+        {
+            string tilemapTemplatePath = "Packages/com.brainfartstudio.autotile/Resources/Tilemap_Template.png";
+            Texture2D defaultTilemap = AssetDatabase.LoadAssetAtPath<Texture2D>(tilemapTemplatePath);
+            if (defaultTilemap != null)
+            {
+                tilemaps.InsertArrayElementAtIndex(0);
+                tilemaps.GetArrayElementAtIndex(0).objectReferenceValue = defaultTilemap;
+            }
+        }
+
         serializedObject.ApplyModifiedProperties();
     }
 
