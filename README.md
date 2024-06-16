@@ -1,6 +1,6 @@
 # Auto Rule Tile Generator
 
-**Version:** 1.0.8  
+**Version:** 1.0.9  
 **Author:** Mitchell Opitz  
 **Website:** [mitchellopitz.net](https://www.mitchellopitz.net)
 
